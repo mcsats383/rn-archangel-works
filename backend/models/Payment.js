@@ -18,11 +18,25 @@ const paymentSchema = new mongoose.Schema(
     },
     transactionId: {
       type: String,
+      unique: true,
+      required: true,
+    },
+    description: {
+      type: String,
       default: '',
     },
     projectId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Project',
+      default: null,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      default: null,
+    },
+    paidAt: {
+      type: Date,
       default: null,
     },
   },
