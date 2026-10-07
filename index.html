@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rn Archangel Works — ก่อสร้าง-ออกแบบ-ปรึกษาลงทุน-แอปพลิเคชัน โดยคนไทย เพื่อคนไทย ยั่งยืน รักษ์โลก">
+    <meta name="keywords" content="ก่อสร้าง, ออกแบบ, อสังหาริมทรัพย์, AI, ลงทุน, RnApp, Rn Archangel Works">
+    <meta name="author" content="Rn Archangel Works">
+    <title>Rn Archangel Works | สร้างมั่นคง ก้าวไกล ด้วยความซื่อสัตย์</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a365d',
+                        secondary: '#d4af37',
+                        dark: '#0f172a',
+                        light: '#f8fafc',
+                        gold: '#d4af37',
+                        navy: '#1a365d',
+                        accent: '#2563eb'
+                    },
+                    fontFamily: {
+                        sans: ['Sarabun', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            }
+            .bg-gradient-rn {
+                background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            }
+            .card-hover {
+                transition: all 0.3s ease;
+            }
+            .card-hover:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(26, 54, 93, 0.15);
+            }
+            .btn-primary {
+                @apply bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-md transition-all duration-300 shadow-md hover:shadow-lg;
+            }
+            .btn-secondary {
+                @apply bg-secondary hover:bg-secondary/90 text-gray-900 font-semibold px-6 py-3 rounded-md transition-all duration-300 shadow-md hover:shadow-lg;
+            }
+            .btn-outline {
+                @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold px-6 py-3 rounded-md transition-all duration-300;
+            }
+            .form-input {
+                @apply w-full px-4 py-3 border-2 border-gray-300 rounded-md focus:outline-none focus:border-primary transition-colors;
+            }
+            .badge {
+                @apply inline-block px-3 py-1 bg-secondary/20 text-primary rounded-full text-sm font-medium;
+            }
+        }
+    </style>
+    
+    <!-- Font: Sarabun (Thai) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Sarabun', sans-serif;
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            background-color: #d4af37;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .section-padding {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+        @media (min-width: 768px) {
+            .section-padding {
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+            }
+        }
+        .toast {
+            animation: slideInUp 0.3s ease-out;
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+<!-- ==================== HEADER / NAVIGATION ==================== -->
+<header id="header" class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-3">
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-2 group">
+                <span class="text-primary text-2xl font-bold group-hover:text-secondary transition-colors">Rn</span>
+                <span class="hidden sm:inline text-gray-700 font-medium group-hover:text-primary transition-colors">Archangel Works</span>
+            </a>
+            
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#home" class="nav-link text-gray-700 hover:text-primary font-medium">หน้าแรก</a>
+                <a href="#services" class="nav-link text-gray-700 hover:text-primary font-medium">บริการ</a>
+                <a href="#projects" class="nav-link text-gray-700 hover:text-primary font-medium">ผลงาน</a>
+                <a href="#rnapp" class="nav-link text-gray-700 hover:text-primary font-medium">RnApp</a>
+                <a href="#news" class="nav-link text-gray-700 hover:text-primary font-medium">ข้อมูล</a>
+                <a href="#partners" class="nav-link text-gray-700 hover:text-primary font-medium">ร่วมงาน</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-primary font-medium">ติดต่อ</a>
+            </nav>
+            
+            <!-- CTA Button -->
+            <a href="#contact" class="hidden md:inline-block btn-secondary">
+                ขอเสนอราคา
+            </a>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menuBtn" class="md:hidden text-gray-700 text-2xl hover:text-primary transition-colors">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Navigation -->
+    <div id="mobileMenu" class="md:hidden hidden bg-white border-t border-gray-200">
+        <div class="container mx-auto px-4 py-3 space-y-3">
+            <a href="#home" class="block py-2 text-gray-700 hover:text-primary transition-colors">หน้าแรก</a>
+            <a href="#services" class="block py-2 text-gray-700 hover:text-primary transition-colors">บริการ</a>
+            <a href="#projects" class="block py-2 text-gray-700 hover:text-primary transition-colors">ผลงาน</a>
+            <a href="#rnapp" class="block py-2 text-gray-700 hover:text-primary transition-colors">RnApp</a>
+            <a href="#news" class="block py-2 text-gray-700 hover:text-primary transition-colors">ข้อมูล</a>
+            <a href="#partners" class="block py-2 text-gray-700 hover:text-primary transition-colors">ร่วมงาน</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:text-primary transition-colors">ติดต่อ</a>
+            <a href="#contact" class="block w-full text-center btn-secondary mt-4">ขอเสนอราคา</a>
+        </div>
+    </div>
+</header>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section id="home" class="pt-24 md:pt-0 min-h-screen flex items-center bg-gradient-rn text-white relative overflow-hidden">
+    <div class="absolute inset-0 bg-black/20 z-0"></div>
+    <div class="absolute top-0 right-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
+    
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <div class="max-w-3xl" data-aos="fade-up" data-aos-duration="800">
+            <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-bold leading-tight mb-6 text-shadow animate-slide-up">
+                สร้างอาคารที่มั่นคง<br>
+                <span class="text-secondary">พัฒนาชุมชนด้วยเทคโนโลยี</span>
+            </h1>
+            <p class="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl animate-slide-up" style="animation-delay: 0.1s">
+                ก่อสร้าง-ออกแบบ-ปรึกษาลงทุน ครบวงจรตามมาตรฐานวิศวกรรม<br>
+                <strong>โดยคนไทย เพื่อคนไทย ยั่งยืน รักษ์โลก</strong>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 animate-slide-up" style="animation-delay: 0.2s">
+                <a href="#services" class="btn-secondary text-center">
+                    <i class="fa fa-building-o mr-2"></i> บริการของเรา
+                </a>
+                <a href="#rnapp" class="bg-white/20 hover:bg-white/30 text-white font-semibold px-8 py-3 rounded-md transition-colors text-center backdrop-blur-sm border border-white/30">
+                    <i class="fa fa-mobile-phone mr-2"></i> แพลตฟอร์ม RnApp
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#about" class="text-white/80 hover:text-white text-2xl transition-colors">
+            <i class="fa fa-chevron-down"></i>
+        </a>
+    </div>
+</section>
+
+<!-- ==================== ABOUT SECTION ==================== -->
+<section id="about" class="section-padding bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">ทำไมต้อง Rn Archangel Works?</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">เราผสานความเชี่ยวชาญด้านวิศวกรรม ประสบการณ์จริง และเทคโนโลยีสมัยใหม่ เพื่อสร้างผลงานที่ไว้วางใจได้</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Card 1 -->
+            <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover" data-aos="fade-up" data-aos-delay="0">
+                <div class="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center text-primary text-2xl mb-6">
+                    <i class="fa fa-cogs"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">มาตรฐานวิศวกรรม</h3>
+                <p class="text-gray-600">ทุกขั้นตอนยึดหลักวิชาการ ออกแบบและก่อสร้างตามหลักวิศวกรรมที่ถูกต้อง ตรวจสอบได้ รับผิดชอบได้</p>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center text-secondary text-2xl mb-6">
+                    <i class="fa fa-microchip"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">ขับเคลื่อนด้วย AI</h3>
+                <p class="text-gray-600">นำเทคโนโลยีปัญญาประดิษฐ์มาช่วยวิเคราะห์ วางแผน บริหารงาน เพื่อความแม่นยำ รวดเร็ว และคุ้มค่า</p>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="bg-gray-50 p-8 rounded-xl shadow-sm card-hover" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-14 h-14 bg-green-50 rounded-lg flex items-center justify-center text-green-600 text-2xl mb-6">
+                    <i class="fa fa-leaf"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">ยั่งยืน รักษ์โลก</h3>
+                <p class="text-gray-600">ใช้ทรัพยากรอย่างประหยัด พัฒนาจากภูมิปัญญาท้องถิ่น สร้างงาน สร้างรายได้คืนสู่ชุมชน</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== SERVICES SECTION ==================== -->
+<section id="services" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">บริการของเรา</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">บริการครบวงจรตั้งแต่ขั้นตอนวางแผน ออกแบบ ก่อสร้าง จนถึงการบริหารและพัฒนา</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow-sm card-hover text-center" data-aos="fade-up" data-aos-delay="0">
+                <div class="text-4xl text-secondary mb-4"><i class="fa fa-building-o"></i></div>
+                <h3 class="font-bold text-lg mb-2">ก่อสร้าง</h3>
+                <p class="text-sm text-gray-600">ก่อสร้างอาคาร บ้านอยู่อาศัย สถานที่ราชการ ตามมาตรฐาน</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-sm card-hover text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-4xl text-primary mb-4"><i class="fa fa-pencil"></i></div>
+                <h3 class="font-bold text-lg mb-2">ออกแบบ</h3>
+                <p class="text-sm text-gray-600">ออกแบบสถาปัตยกรรม วิศวกรรม ที่สวยงามและใช้ได้</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-sm card-hover text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-4xl text-accent mb-4"><i class="fa fa-line-chart"></i></div>
+                <h3 class="font-bold text-lg mb-2">ปรึกษา</h3>
+                <p class="text-sm text-gray-600">ให้คำปรึกษาเรื่องการลงทุน การจัดการโครงการ</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-sm card-hover text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-4xl text-green-600 mb-4"><i class="fa fa-mobile-phone"></i></div>
+                <h3 class="font-bold text-lg mb-2">แอปพลิเคชัน</h3>
+                <p class="text-sm text-gray-600">พัฒนา RnApp เพื่อบริหารจัดการโครงการ</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROJECTS SECTION ==================== -->
+<section id="projects" class="section-padding bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">ผลงานของเรา</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">ผลงานที่สะท้อนความมุ่งมั่นและความเชี่ยวชาญของทีม</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="group cursor-pointer" data-aos="fade-up" data-aos-delay="0">
+                <div class="bg-gradient-rn h-64 rounded-lg shadow-md overflow-hidden relative">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fa fa-image text-4xl mb-4 block"></i>
+                            <p>โครงการที่ 1</p>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="font-bold mt-4">โครงการก่อสร้างอสังหาริมทรัพย์</h3>
+                <p class="text-sm text-gray-600">ออกแบบและก่อสร้างบ้านพักอาศัยมาตรฐาน</p>
+            </div>
+
+            <div class="group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-gradient-rn h-64 rounded-lg shadow-md overflow-hidden relative">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fa fa-image text-4xl mb-4 block"></i>
+                            <p>โครงการที่ 2</p>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="font-bold mt-4">โครงการสถานที่ราชการ</h3>
+                <p class="text-sm text-gray-600">ออกแบบและก่อสร้างสำนักงานราชการ</p>
+            </div>
+
+            <div class="group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-gradient-rn h-64 rounded-lg shadow-md overflow-hidden relative">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <i class="fa fa-image text-4xl mb-4 block"></i>
+                            <p>โครงการที่ 3</p>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="font-bold mt-4">โครงการพัฒนาชุมชน</h3>
+                <p class="text-sm text-gray-600">พัฒนาโครงสร้างพื้นฐานชุมชน</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== RNAPP SECTION ==================== -->
+<section id="rnapp" class="section-padding bg-gradient-rn text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-6">RnApp Platform</h2>
+                <p class="text-lg text-gray-200 mb-6">แพลตฟอร์มดิจิทัลที่ช่วยให้คุณจัดการโครงการก่อสร้างได้อย่างมีประสิทธิภาพ</p>
+                
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-start gap-4">
+                        <div class="text-secondary text-xl mt-1"><i class="fa fa-check"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">จัดการโครงการ</h4>
+                            <p class="text-gray-300 text-sm">ติดตามความคืบหน้า งบประมาณ และทีมงาน</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-secondary text-xl mt-1"><i class="fa fa-check"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">วิเคราะห์ข้อมูล</h4>
+                            <p class="text-gray-300 text-sm">รายงาน Dashboard และ Analytics ในเวลาจริง</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4">
+                        <div class="text-secondary text-xl mt-1"><i class="fa fa-check"></i></div>
+                        <div>
+                            <h4 class="font-bold mb-1">ความปลอดภัย</h4>
+                            <p class="text-gray-300 text-sm">ข้อมูลเข้ารหัสและป้องกันอย่างแน่นหนา</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="#contact" class="btn-secondary inline-block">
+                    <i class="fa fa-download mr-2"></i> ดาวน์โหลด RnApp
+                </a>
+            </div>
+
+            <div data-aos="fade-left">
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/20">
+                    <div class="space-y-6">
+                        <div class="text-center">
+                            <i class="fa fa-mobile-phone text-6xl text-secondary mb-4 block"></i>
+                            <h3 class="font-bold text-xl">รวมทุกอย่างในมือคุณ</h3>
+                            <p class="text-gray-300 text-sm mt-2">ใช้งานได้ทั่วทีมงาน ไม่ว่าอยู่ที่ไหน</p>
+                        </div>
+                        
+                        <div class="border-t border-white/20 pt-6">
+                            <h4 class="font-bold mb-4">ฟีเจอร์ใหม่</h4>
+                            <ul class="space-y-3 text-sm text-gray-300">
+                                <li><i class="fa fa-check text-secondary mr-2"></i> AI ช่วยวิเคราะห์งบประมาณ</li>
+                                <li><i class="fa fa-check text-secondary mr-2"></i> แชท Realtime ระหว่างทีม</li>
+                                <li><i class="fa fa-check text-secondary mr-2"></i> แมพโลเคชั่นโครงการ</li>
+                                <li><i class="fa fa-check text-secondary mr-2"></i> บันทึกอัตโนมัติบนคลาวด์</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== NEWS/BLOG SECTION ==================== -->
+<section id="news" class="section-padding bg-gray-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">ข้อมูลและข่าวสาร</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">อัปเดตข้อมูลล่าสุด บทความ และประกาศสำคัญ</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="0">
+                <div class="h-48 bg-gradient-rn"></div>
+                <div class="p-6">
+                    <div class="flex gap-2 mb-3">
+                        <span class="badge">ข่าวสาร</span>
+                        <span class="text-xs text-gray-500">20 มิถุนายน 2567</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">การเปิดตัว RnApp Version 2.0</h3>
+                    <p class="text-gray-600 text-sm mb-4">ยินดีประกาศเปิดตัว RnApp Version 2.0 พร้อมฟีเจอร์ใหม่มากมาย</p>
+                    <a href="#" class="text-primary font-semibold text-sm hover:text-secondary transition-colors">อ่านต่อ →</a>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-48 bg-gradient-rn"></div>
+                <div class="p-6">
+                    <div class="flex gap-2 mb-3">
+                        <span class="badge">บทความ</span>
+                        <span class="text-xs text-gray-500">15 มิถุนายน 2567</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">เทคโนโลยี AI ในการก่อสร้าง</h3>
+                    <p class="text-gray-600 text-sm mb-4">วิธีการนำเทคโนโลยี AI มาใช้ในการบริหารจัดการโครงการ</p>
+                    <a href="#" class="text-primary font-semibold text-sm hover:text-secondary transition-colors">อ่านต่อ →</a>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-lg shadow-sm overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-48 bg-gradient-rn"></div>
+                <div class="p-6">
+                    <div class="flex gap-2 mb-3">
+                        <span class="badge">ประกาศ</span>
+                        <span class="text-xs text-gray-500">10 มิถุนายน 2567</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">เปิดรับสมัครพนักงาน</h3>
+                    <p class="text-gray-600 text-sm mb-4">เปิดรับสมัครวิศวกรก่อสร้าง และนักพัฒนาซอฟต์แวร์</p>
+                    <a href="#" class="text-primary font-semibold text-sm hover:text-secondary transition-colors">อ่านต่อ →</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PARTNERS SECTION ==================== -->
+<section id="partners" class="section-padding bg-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+            <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-primary mb-4">ร่วมงานกับเรา</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">ลงทุน พัฒนา และสร้างมูลค่าร่วมกันในแต่ละโครงการ</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-50 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="0">
+                <h3 class="text-xl font-bold mb-4">สำหรับนักลงทุน</h3>
+                <ul class="space-y-3 mb-6 text-gray-700">
+                    <li><i class="fa fa-check text-secondary mr-3"></i>โครงการที่มีศักยภาพสูง</li>
+                    <li><i class="fa fa-check text-secondary mr-3"></i>ผลตอบแทนที่เป็นธรรม</li>
+                    <li><i class="fa fa-check text-secondary mr-3"></i>การรายงานโปร่งใส</li>
+                    <li><i class="fa fa-check text-secondary mr-3"></i>ความมั่นคงการทำงาน</li>
+                </ul>
+                <a href="#contact" class="btn-primary w-full text-center">
+                    ติดต่อเพื่อลงทุน
+                </a>
+            </div>
+
+            <div class="bg-gray-50 p-8 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-bold mb-4">สำหรับพันธมิตร</h3>
+                <ul class="space-y-3 mb-6 text-gray-700">
+                    <li><i class="fa fa-check text-secondary mr-3"></i>ความร่วมมือระยะยาว</li>
+                    <li><i class="fa fa-check text-secondary mr-3"></i>สนับสนุนเทคโนโลยี</li>
+                    <li><i class="fa fa-check text-secondary mr-3"></i>แบ่งปันความรู้</li>
+                    <li><i class="fa fa-check text-secondary mr-3"></i>เติบโตไปด้วยกัน</li>
+                </ul>
+                <a href="#contact" class="btn-outline w-full text-center">
+                    เสนอความร่วมมือ
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<section id="contact" class="section-padding bg-gradient-rn text-white">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">ติดต่อเราวันนี้</h2>
+                <p class="text-lg text-gray-200">เราพร้อมตอบคำถามและให้คำปรึกษาแก่คุณ</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div data-aos="fade-up" data-aos-delay="0">
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">ชื่อ-นามสกุล *</label>
+                            <input type="text" name="name" required class="form-input bg-white/10 border-white/30 text-white placeholder-gray-300" placeholder="ชื่อของคุณ">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">อีเมล *</label>
+                            <input type="email" name="email" required class="form-input bg-white/10 border-white/30 text-white placeholder-gray-300" placeholder="example@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">เบอร์โทรศัพท์ *</label>
+                            <input type="tel" name="phone" required class="form-input bg-white/10 border-white/30 text-white placeholder-gray-300" placeholder="0812345678">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">เรื่องที่ต้องการ *</label>
+                            <select name="subject" required class="form-input bg-white/10 border-white/30 text-white">
+                                <option value="" class="bg-primary">-- เลือกเรื่อง --</option>
+                                <option value="construction" class="bg-primary">บริการก่อสร้าง</option>
+                                <option value="design" class="bg-primary">บริการออกแบบ</option>
+                                <option value="consulting" class="bg-primary">บริการปรึกษา</option>
+                                <option value="investment" class="bg-primary">ลงทุน</option>
+                                <option value="partnership" class="bg-primary">ความร่วมมือ</option>
+                                <option value="other" class="bg-primary">อื่น ๆ</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">ข้อความ *</label>
+                            <textarea name="message" rows="5" required class="form-input bg-white/10 border-white/30 text-white placeholder-gray-300" placeholder="ข้อความของคุณ..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-secondary w-full">
+                            <i class="fa fa-paper-plane-o mr-2"></i> ส่งข้อความ
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="space-y-8">
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                            <h3 class="font-bold text-lg mb-4">ข้อมูลติดต่อ</h3>
+                            <div class="space-y-4">
+                                <div class="flex gap-4">
+                                    <div class="text-secondary text-2xl min-w-fit"><i class="fa fa-map-marker"></i></div>
+                                    <div>
+                                        <p class="font-semibold">ที่อยู่</p>
+                                        <p class="text-gray-300 text-sm">123 ถนนสุขุมวิท กรุงเทพฯ 10110</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="text-secondary text-2xl min-w-fit"><i class="fa fa-phone"></i></div>
+                                    <div>
+                                        <p class="font-semibold">เบอร์โทรศัพท์</p>
+                                        <p class="text-gray-300 text-sm">02-123-4567</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="text-secondary text-2xl min-w-fit"><i class="fa fa-envelope"></i></div>
+                                    <div>
+                                        <p class="font-semibold">อีเมล</p>
+                                        <p class="text-gray-300 text-sm">info@rnarchangelworks.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                            <h3 class="font-bold text-lg mb-4">เวลาทำการ</h3>
+                            <div class="space-y-2 text-sm">
+                                <p><span class="font-semibold">จันทร์ - ศุกร์</span>: 08:00 - 17:00 น.</p>
+                                <p><span class="font-semibold">เสาร์</span>: 09:00 - 13:00 น.</p>
+                                <p><span class="font-semibold">อาทิตย์</span>: ปิด</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/20">
+                            <h3 class="font-bold text-lg mb-4">ติดตามเรา</h3>
+                            <div class="flex gap-4">
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors text-lg">
+                                    <i class="fa fa-facebook"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors text-lg">
+                                    <i class="fa fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors text-lg">
+                                    <i class="fa fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors text-lg">
+                                    <i class="fa fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="bg-dark text-gray-300 py-12">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <h3 class="font-bold text-white text-lg mb-4">Rn Archangel Works</h3>
+                <p class="text-sm">ก่อสร้าง-ออกแบบ-ปรึกษาลงทุน-แอปพลิเคชัน โดยคนไทย เพื่อคนไทย</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-white mb-4">บริการ</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#services" class="hover:text-secondary transition-colors">ก่อสร้าง</a></li>
+                    <li><a href="#services" class="hover:text-secondary transition-colors">ออกแบบ</a></li>
+                    <li><a href="#services" class="hover:text-secondary transition-colors">ปรึกษา</a></li>
+                    <li><a href="#rnapp" class="hover:text-secondary transition-colors">RnApp</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-white mb-4">บริษัท</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#about" class="hover:text-secondary transition-colors">เกี่ยวกับเรา</a></li>
+                    <li><a href="#news" class="hover:text-secondary transition-colors">ข่าวสาร</a></li>
+                    <li><a href="#projects" class="hover:text-secondary transition-colors">ผลงาน</a></li>
+                    <li><a href="#contact" class="hover:text-secondary transition-colors">ติดต่อ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-white mb-4">นโยบาย</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-secondary transition-colors">นโยบายความเป็นส่วนตัว</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">เงื่อนไขการใช้งาน</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">ข้อมูลคุกกี้</a></li>
+                    <li><a href="#" class="hover:text-secondary transition-colors">แจ้งปัญหา</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-700 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400">© 2567 Rn Archangel Works. สงวนสิทธิ์ทั้งหมด</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fa fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-secondary transition-colors"><i class="fa fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ==================== SCROLL TO TOP BUTTON ==================== -->
+<button id="scrollToTopBtn" class="fixed bottom-8 right-8 bg-secondary hover:bg-secondary/90 text-gray-900 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all opacity-0 invisible z-40">
+    <i class="fa fa-chevron-up"></i>
+</button>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+});
+
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+});
+
+document.querySelectorAll('#mobileMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+    });
+});
+
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+const header = document.getElementById('header');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        scrollToTopBtn.classList.remove('opacity-0', 'invisible');
+    } else {
+        scrollToTopBtn.classList.add('opacity-0', 'invisible');
+    }
+
+    if (window.scrollY > 50) {
+        header.classList.add('shadow-md');
+    } else {
+        header.classList.remove('shadow-md');
+    }
+});
+
+scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const formData = {
+            name: document.querySelector('input[name="name"]').value,
+            email: document.querySelector('input[name="email"]').value,
+            phone: document.querySelector('input[name="phone"]').value,
+            subject: document.querySelector('select[name="subject"]').value,
+            message: document.querySelector('textarea[name="message"]').value,
+        };
+
+        showToast('ส่งข้อความสำเร็จ! เราจะติดต่อกลับหนึ่งในเร็ว ๆ นี้', 'success');
+        contactForm.reset();
+        console.log('Form Data:', formData);
+    });
+}
+
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    const bgColor = type === 'success' ? 'bg-green-500' : 'bg-blue-500';
+    
+    toast.className = `fixed top-20 right-8 ${bgColor} text-white px-6 py-4 rounded-lg shadow-lg toast z-50`;
+    toast.textContent = message;
+    
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.animation = 'slideInUp 0.3s ease-out reverse';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                const headerHeight = document.getElementById('header').offsetHeight;
+                window.scrollTo({
+                    top: target.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+});
+
+window.addEventListener('load', () => {
+    document.body.classList.add('animate-fade-in');
+});
+</script>
+
+</body>
+</html>
